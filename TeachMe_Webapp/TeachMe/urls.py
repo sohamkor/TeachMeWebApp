@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index, name='index'),
     url(r'^signIn', views.authenticateUser, name='Page to authenticate the user'),
+    url(r'^signUp', views.signUp, name='Page to sign up a user'),
+    url(r'^processSignUp', views.processSignUp, name='Page to process and create an account'),
     url(r'^home', views.homePage, name='Home Page for the user'),
     url(r'^subjects', views.subjectsPage, name='Page that lists all the subjects'),
     url(r'^myClasses', views.myClassesPage, name='Page for all of the user\'s classes'),

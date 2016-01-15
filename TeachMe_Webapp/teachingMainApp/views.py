@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
+from django.contrib.auth.models import User
+
 from .models import Learner, Coach
 from .tools_queue import Queue
 
@@ -35,6 +37,29 @@ def authenticateUser(request):
             return HttpResponseRedirect('/')
         else:
             return HttpResponseRedirect('/home')
+
+def signUp(request):
+    return render(request, 'teachingMainApp/signUp.html', {})
+
+def processSignUp(request):
+    firstname = request.POST.get("firstnameBox", "")
+    lastname = request.POST.get("lastnameBox", "")
+    username = request.POST.get("usernameBox", "")
+    password = request.POST.get("passwordBox", "")
+
+    if firstname == "" or lastname == "" or username == "" or password == "":
+        return HttpResponseRedirect('/signUp')
+
+    user = User.objects.create_user(username, password=password)
+    user.first_name = firstname
+    user.last_name = lastname
+    user.save()
+
+    learner = Learner(user=user)
+    learner.save()
+
+    return render(request, 'teachingMainApp/accountCreated.html', context={'firstname': firstname})
+    
 
 def homePage(request):
     if not request.user.is_authenticated():
