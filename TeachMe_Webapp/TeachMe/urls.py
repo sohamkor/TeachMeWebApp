@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^home', views.homePage, name='Home Page for the user'),
     url(r'^subjects', views.subjectsPage, name='Page that lists all the subjects'),
     url(r'^myClasses', views.myClassesPage, name='Page for all of the user\'s classes'),
+    url(r'^processStudent', views.processStudent, name='Add a student with you as the coach'),
     url(r'^rolloutAlgorithm', views.rolloutAlgorithmPage, name='Page to run the rollout algorithm'),
     url(r'^totalInfection', views.totalInfectionPage, name='Page to start a total infection'),
     url(r'^processTotalInfection', views.processTI, name='Page to process the total infection'),

@@ -59,7 +59,7 @@ def processSignUp(request):
     learner.save()
 
     return render(request, 'teachingMainApp/accountCreated.html', context={'firstname': firstname})
-    
+
 
 def homePage(request):
     if not request.user.is_authenticated():
@@ -114,6 +114,34 @@ def myClassesPage(request):
     context['currentlyBeingCoachedBy'] = currentlyBeingCoachedBy
     
     return render(request, renderDirectory, context)
+
+def processStudent(request):
+    context = {}
+
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/')
+
+    usernameOfCoach = request.POST.get("usernameToBeCoachedBy", "")
+    if usernameOfCoach == "":
+        return HttpResponseRedirect('/')
+
+    myUserList = Learner.objects.filter(user__username=request.user.username)
+    myUser = myUserList[0]
+
+    usersSpecificVersionNumber = myUser.versionOfSite
+    renderDirectory = 'teachingMainApp/v' + usersSpecificVersionNumber + '/userCantBeFound.html'
+
+    learnerList = Learner.objects.filter(user__username=usernameOfCoach)
+    if len(learnerList) == 0:
+        return render(request, renderDirectory, context={'coachUser': usernameOfCoach})
+    coachObj = learnerList[0]    
+
+    newCoachRelation = Coach(theUserToCoach=myUser, theUserWhoIsTheCoach=coachObj)
+    newCoachRelation.save()
+
+    renderDirectory = 'teachingMainApp/v' + usersSpecificVersionNumber + '/addedStudent.html'
+
+    return render(request, renderDirectory, context={'myUsername': request.user.username, 'coachUsername': coachObj.user.username})
 
 def rolloutAlgorithmPage(request):
     if not request.user.is_authenticated():
