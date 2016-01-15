@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body background="{% static "teachingMainApp/images/indexBg.png" %}">
+<script>
+
+</script>
+<style>
+	.jumbotron {
+	  margin-bottom: 0px;
+	}
+
+	.navbar-nav {
+	  width: 100%;
+	  text-align: center;
+	}
+	.navbar-nav > li {
+	  float: none;
+	  display: inline-block;
+	}
+	
+	#mainContentJumbo {
+	  background-color: #DAFBF0;
+	}
+	
+	#instrucPara {
+	  font-size: 110%;
+	}
+</style>
+<div class="jumbotron">
+	<center>
+		<img src="{% static "teachingMainApp/images/logoForHomePage.png" %}">
+	</center>
+</div>
+
+	<!-- initialize the navigation bar here --!>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="pull-left"><a href="/"><b>My Home</b></a></li>
+            <li><a href="/subjects"><b>Subjects</b></a></li>
+            <li><a href="/myClasses"><b>My Classes</b></a></li>
+            <li><a href="/rolloutAlgorithm"><b>Rollout Algorithm</b></a></li>
+            <li class="active"><a href="/aboutUs"><b>About Us</b></a></li>
+            <li class="social pull-right"><a href="/logout"><b>Logout</b></a></li>
+            <li class="social pull-right" style="line-height: 50px;"><u><b>You are using <i>v1.0.0</i> of the site</b></u></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
+	<br>
+	<!-- initialize header frame here --!>
+	<div class="container">
+		<div class="jumbotron" id="mainContentJumbo">
+			<center>
+			<p>Made by Soham Koradia for</p>
+			<img src="{% static "teachingMainApp/images/ka_logo.png" %}">
+			<br><br>
+			<p id="instrucPara">In order to show the infection algorithm in action on an actual website (to test it out,
+				first you must coach/be coached by some users, and then click on the "Rollout Algorithm" tab on the top).</p>
+			<hr>
+			<p>Hope you like it!</p>
+			</center>
+		</div>
+	</div>
+</body>
+</html>

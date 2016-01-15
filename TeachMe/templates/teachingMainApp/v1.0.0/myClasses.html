@@ -1,0 +1,100 @@
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body background="{% static "teachingMainApp/images/indexBg.png" %}">
+<script>
+
+</script>
+<style>
+	hr {
+	  border: 1px solid #000000;
+	}
+
+	.jumbotron {
+	  margin-bottom: 0px;
+	}
+
+	.navbar-nav {
+	  width: 100%;
+	  text-align: center;
+	}
+	.navbar-nav > li {
+	  float: none;
+	  display: inline-block;
+	}
+	
+	#mainContentJumbo {
+	  background-color: #DAFBF0;
+	}
+</style>
+<div class="jumbotron">
+	<center>
+		<img src="{% static "teachingMainApp/images/logoForHomePage.png" %}">
+	</center>
+</div>
+
+	<!-- initialize the navigation bar here --!>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="pull-left"><a href="/"><b>My Home</b></a></li>
+            <li><a href="/subjects"><b>Subjects</b></a></li>
+            <li class="active"><a href="/myClasses"><b>My Classes</b></a></li>
+            <li><a href="/rolloutAlgorithm"><b>Rollout Algorithm</b></a></li>
+            <li><a href="/aboutUs"><b>About Us</b></a></li>
+            <li class="social pull-right"><a href="/logout"><b>Logout</b></a></li>
+            <li class="social pull-right" style="line-height: 50px;"><u><b>You are using <i>v1.0.0</i> of the site</b></u></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
+	<br>
+	<!-- initialize header frame here --!>
+	<div class="container">
+		<div class="jumbotron" id="mainContentJumbo">
+			<center>
+			<h1><u>Your classes</u></h1>
+			<p>To be coached by someone, type their username into the following box:</p>
+			<form role="form" class="form-group" method="post" action="processStudent">
+				{% csrf_token %}
+				<div class="col-lg-4 col-lg-offset-4">
+					<input type="text" placeholder="Username of coach" class="form-control" name="usernameToBeCoachedBy">
+				</div>
+				<button class="btn btn-default" style="float: left;" type="submit">Go</button>
+			</form>
+			<br><br>
+			<hr>
+			<p>To coach another user, tell them to add you using your username (<i>{{ username }}</i>).</p>
+			<hr>
+			<h2>You as a coach</h2>
+			{% if not currentlyCoaching.count == 0 %}
+				<p>You are currently coaching the following users:</p>
+				{% for eachLearner in currentlyCoaching %}
+					<p><b>{{ eachLearner.theUserToCoach }}</b></p>
+				{% endfor %}
+			{% else %}
+				<p>Seems like you are not currently coaching anyone.</p>
+			{% endif %}
+			<hr>
+			<h2>You as a student</h2>
+			{% if not currentlyBeingCoachedBy.count == 0 %}
+				<p>And you are currently being coached by the following:</p>
+				{% for eachLearner in currentlyBeingCoachedBy %}
+					<p><b>{{ eachLearner.theUserWhoIsTheCoach }}</b></p>
+				{% endfor %}
+			{% else %}
+				<p><i>Seems like you are not currently being coached by anyone. Add someone above ^</i></p>
+			{% endif %}
+			</center>
+		</div>
+	</div>
+</body>
+</html>
