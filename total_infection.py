@@ -1,4 +1,26 @@
 # By Soham Koradia as a project for Khan Academy
+'''
+In order to use this algorithm, open up a Python terminal (by executing the
+command 'python' in bash/command prompt), import this module (import
+total_infection), import the User module (from site_user import User), create as
+many users as you would like by running for example: bob = User("bob", "cat",
+"bcat54", "bcat@meownetworks.com"). Basically this User constructor takes the
+format: firstname, lastname, username, emailAddress. After making enough as you
+see fit, you can add users to as student/coaches of others by running the
+following User methods: beCoachedByUser(userWhoIsTheCoach) and
+addUserToCoach(usernameToCoach). For example, here's a way to run that (assuming
+sam is an already defined user variable name): sam.beCoachedByUser(bob). Once as
+many coach/student relationships are setup, you can call this algorithm on any
+given user like this: total_infection.infectConnection(sam, "v1.0.8"), where the
+first parameter is the user to start the infection from and the second one is
+the version number to roll out to them. After this finishes, check to see that
+it worked by calling the printSiteReportOfUsersImCoachedBy() and
+printSiteReportOfUsersImCoaching() methods of any User, for example,
+bob.printSiteReportOfUsersImCoaching(), which should return the version each
+specific user in your connected tree is on. This algorithm was incorporated into
+the TeachMe webapp in order to demonstrate it in a real website environment.
+Hope you like it!
+'''
 
 from site_user import User
 from tools_queue import Queue

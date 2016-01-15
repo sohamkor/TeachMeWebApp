@@ -1,4 +1,16 @@
 # By Soham Koradia as a project for Khan Academy
+''' 
+The process to user this is similar as that described at the top of the
+total_infection module, and the onyl difference is that instead of running the
+total_infection algorithm, you would use this one, like so (continuing from the
+example users given in that module):
+limited_infection.infectLimitedConnection(sam, "v3.1.0", 4), where the first
+paramter is any given user object variable name, the second parameter is the
+version to rollover the users to, and the third one is the number of users that
+need to be infected.  This algorithm has also been incorporated to the TeachMe
+webapp, which shows it in action by clicking on the "Rollover Algorithm" tab
+after signing in.  
+'''
 
 from site_user import User
 from tools_queue import Queue
