@@ -12,18 +12,24 @@
 
 </script>
 <style>
+	hr {
+	  border: 1px solid #000000;
+	}
+
 	.jumbotron {
 	  margin-bottom: 0px;
 	}
-
+	
 	.navbar-nav {
 	  width: 100%;
 	  text-align: center;
 	}
+	
 	.navbar-nav > li {
 	  float: none;
 	  display: inline-block;
 	}
+	
 	#mainContentJumbo {
 	  background-color: #DAFBF0;
 	}
@@ -39,9 +45,9 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="pull-left"><a href="/"><b>My Home</b></a></li>
-            <li class="active"><a href="/subjects"><b>Subjects</b></a></li>
+            <li><a href="/subjects"><b>Subjects</b></a></li>
             <li><a href="/myClasses"><b>My Classes</b></a></li>
-            <li><a href="/rolloutAlgorithm"><b>Rollout Algorithm</b></a></li>
+            <li class="active"><a href="/rolloutAlgorithm"><b>Rollout Algorithm</b></a></li>
             <li><a href="/aboutUs"><b>About Us</b></a></li>
             <li class="social pull-right"><a href="/logout"><b>Logout</b></a></li>
             <li class="social pull-right" style="line-height: 50px;"><u><b>You are using <i>v1.0.0</i> of the site</b></u></li>
@@ -55,24 +61,11 @@
 	<div class="container">
 		<div class="jumbotron" id="mainContentJumbo">
 			<center>
-			<p>Welcome to our demo, we offer classes in the following subjects:</p>
-			<hr>
-			<ul class="list-group row">
-				<li class="list-group-item col-md-6 col-md-offset-3">
-					Math
-				</li>
-				<li class="list-group-item col-md-6 col-md-offset-3">
-					English
-				</li>
-				<li class="list-group-item col-md-6 col-md-offset-3">
-					Science
-				</li>
-				<li class="list-group-item col-md-6 col-md-offset-3">
-					Tractor driving (you must provide your own tractor though) - one of our
-						personal favorites.
-				</li>
-			</ul>
-			<p>This page is still <u>in development</u>.</p>
+				<h2>Confirm the limited algorithm?</h2>
+				<hr>
+				<p>In order to roll this out in a structered way, we have determined that {{ numOfChangesToMake }} user(s) need to be infected. This ensures that for the most part classes have students who are uniformly using the same new version. Do you want to make the changes?</p>
+				<a href="/finishLimitedInfection" class="btn btn-default">Yes</a>
+				<a href="/" class="btn btn-default">No</a>
 			</center>
 		</div>
 	</div>

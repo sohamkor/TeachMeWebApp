@@ -1,0 +1,96 @@
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body background="{% static "teachingMainApp/images/otherIndexBg.png" %}">
+<script>
+	$(document).ready(function() {
+  		$(".dropdown-menu li a").click(function(){
+    		event.preventDefault();
+	
+			versionVal = $(this).text()
+			numUsersVal = $("#userInput").val();
+			window.location.href = "/processLimitedInfection?version=" + versionVal + "&numUsers=" + numUsersVal;
+  		}); 
+	});
+</script>
+<style>
+	hr {
+	  border: 1px solid #000000;
+	}
+
+	.jumbotron {
+	  margin-bottom: 0px;
+	}
+	
+	.navbar-nav {
+	  width: 100%;
+	  text-align: center;
+	}
+	
+	.navbar-nav > li {
+	  float: none;
+	  display: inline-block;
+	}
+	
+	#mainContentJumbo {
+	  background-color: #FFC3CE;
+	}
+	
+	.centerDropdown {
+    	left: auto !important;
+    	right: 42% !important;
+	}
+</style>
+<div class="jumbotron">
+	<center>
+		<img src="{% static "teachingMainApp/images/logoForHomePage.png" %}">
+	</center>
+</div>
+	<!-- initialize the navigation bar here --!>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="pull-left"><a href="/"><b>My Home</b></a></li>
+            <li><a href="/subjects"><b>Subjects</b></a></li>
+            <li><a href="/myClasses"><b>My Classes</b></a></li>
+            <li class="active"><a href="/rolloutAlgorithm"><b>Rollout Algorithm</b></a></li>
+            <li><a href="/aboutUs"><b>About Us</b></a></li>
+            <li class="social pull-right"><a href="/logout"><b>Logout</b></a></li>
+            <li class="social pull-right" style="line-height: 50px;"><u><b>You are using <i>v2.0.0</i> of the site</b></u></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
+	<br>
+	<!-- initialize header frame here --!>
+	<div class="container">
+		<div class="jumbotron" id="mainContentJumbo">
+			<center>
+				<h2>Limited Infection</h2>
+				<hr>
+				<p>Enter the number of users to infect:</p>
+  				<input name='numUsersToInfect' id="userInput" />
+  				<br><br>
+				<p>Which version would you like to rollover users (who are linked in your connected tree, i.e: Students and Coaches) to?</p>
+  				<div class="dropdown">
+    				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Version to rollover <span class="caret"></span></button>
+    				<ul class="dropdown-menu centerDropdown" id="versionD">
+      					<li><a>v1.0.0</a></li>
+      					<li class="disabled"><a>v2.0.0 (current)</a></li>
+    				</ul>
+  				</div>
+  				<hr>
+  				<p>Clicking on any of the available versions above will start the infection.</p>
+			</center>
+		</div>
+	</div>
+</body>
+</html>
