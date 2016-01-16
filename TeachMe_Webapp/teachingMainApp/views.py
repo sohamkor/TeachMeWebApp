@@ -322,6 +322,9 @@ def processLI(request):
     # while the other fraction to be on the older one, which marks a more
     # serious divide.
 
+    print("Starting the Limited Infection Algorithm!")
+    listOfObjProcessed = []
+
     # The following loop will take care of all the users that the current user is coaching
     while infectionQueue.size() > 0:
         currUserNode = infectionQueue.dequeue()
@@ -330,13 +333,18 @@ def processLI(request):
 
         for eachIndividualNode in listOfPeopleImCoaching:
             userObj = eachIndividualNode.theUserToCoach
-
-            if not userObj.versionOfSite == newVersionOfSite:
+            
+            if not userObj.versionOfSite == newVersionOfSite and not userObj in listOfObjProcessed:
                 userChangesNeededToBeMade += 1                    
                 infectionQueue.enqueue(userObj)
 
+                listOfObjProcessed.append(userObj)
+
     # The above algorithm will need to be executed again with the bottom part of the connected graph (users that userObjToStartInfectionFrom is coaching) and then re-add it to the queue
     infectionQueue.enqueue(currentUser)
+    listOfObjProcessed = []
+
+    print("Moving on..")
 
     if userChangesNeededToBeMade < numOfUsersToInfect:
         moveOnToSecond = True # This ensures that we can keep track of the fact that we are able to go on to the second part of the algorithm
@@ -349,9 +357,11 @@ def processLI(request):
             for eachIndividualNode in listOfPeopleCoachingMe:
                 userObj = eachIndividualNode.theUserWhoIsTheCoach
 
-                if not userObj.versionOfSite == newVersionOfSite:
+                if not userObj.versionOfSite == newVersionOfSite and not userObj in listOfObjProcessed:
                     userChangesNeededToBeMade += 1
                     infectionQueue.enqueue(userObj)
+
+                    listOfObjProcessed.append(userObj)
 
     context['numOfChangesToMake'] = userChangesNeededToBeMade
 
