@@ -181,6 +181,8 @@ def processTI(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/')
 
+    userToStartInfectionWith = request.GET.get("user", request.user.username)
+
     newVersionOfSite = request.GET.get("version", None)
     if "v" in newVersionOfSite:
         newVersionOfSite = newVersionOfSite[1:]
@@ -189,7 +191,18 @@ def processTI(request):
     context = {}
     listOfIdsModified = []
 
-    learnerList = Learner.objects.filter(user__username=request.user.username)
+    learnerList = Learner.objects.filter(user__username=userToStartInfectionWith)
+    # Error checking just in case the user specified doesn't exist
+    if len(learnerList) == 0:
+        learnerList = Learner.objects.filter(user__username=request.user.username)
+        currentUser = learnerList[0] # Got current user's Learner object
+
+        usersSpecificVersionNumber = currentUser.versionOfSite
+        renderDirectory = 'teachingMainApp/v' + usersSpecificVersionNumber + '/userCantBeFound.html'
+        
+        # Redirect the user to the 'Username not found' page
+        return render(request, renderDirectory, context={}) 
+
     currentUser = learnerList[0] # Got current user's Learner object
 
     listOfIdsModified.append(currentUser.user.username)
@@ -289,6 +302,7 @@ def processLI(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/')
 
+    startingUserToInfect = request.GET.get("user", request.user.username)
     newVersionOfSite = request.GET.get("version", None)
     numOfUsersToInfect = eval(request.GET.get("numUsers", None))
     if "v" in newVersionOfSite:
@@ -301,7 +315,19 @@ def processLI(request):
     userChangesNeededToBeMade = 1
     moveOnToSecond = False
 
-    learnerList = Learner.objects.filter(user__username=request.user.username)
+    learnerList = Learner.objects.filter(user__username=startingUserToInfect)
+
+    # Error checking just in case the user specified doesn't exist
+    if len(learnerList) == 0:
+        learnerList = Learner.objects.filter(user__username=request.user.username)
+        currentUser = learnerList[0] # Got current user's Learner object
+
+        usersSpecificVersionNumber = currentUser.versionOfSite
+        renderDirectory = 'teachingMainApp/v' + usersSpecificVersionNumber + '/userCantBeFound.html'
+        
+        # Redirect the user to the 'Username not found' page
+        return render(request, renderDirectory, context={}) 
+
     currentUser = learnerList[0] # Got current user's Learner object
 
     # Using a breadth-first search in order to analyze the user's connected
